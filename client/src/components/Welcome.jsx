@@ -25,7 +25,7 @@ const Welcome = () => {
     currentAccount, 
     connectWallet, 
     handleChange, 
-    // sendTransaction, 
+    sendTransaction, 
     formData, 
     //isLoading 
   } = useContext(TransactionContext);

@@ -7,17 +7,19 @@ export const TransactionContext = React.createContext();
 
 const { ethereum } = window;
 
-const getEthereumContract = () => {
+const createEthereumContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
   
-    //return transactionsContract;
+    return transactionsContract;
   };
 
 export const TransactionsProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState("");
     const [formData, setformData] = useState({ addressTo: "", amount: "", keyword: "", message: "" });
+    const [isLoading, setIsLoading] = useState(false);
+    const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
 
     const handleChange = (e, name) => {
         setformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -74,11 +76,12 @@ export const TransactionsProvider = ({ children }) => {
               }],
             });
     
+            //mengirim ke blockchain, addToBlockchain adalah fungsi yang kita bikin di file transaction.sol
             const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
     
             setIsLoading(true);
             console.log(`Loading - ${transactionHash.hash}`);
-            await transactionHash.wait();
+            await transactionHash.wait(); //menunggu transaksi selese
             console.log(`Success - ${transactionHash.hash}`);
             setIsLoading(false);
     
@@ -111,7 +114,7 @@ export const TransactionsProvider = ({ children }) => {
             // transactions,
             currentAccount,
             // isLoading,
-            // sendTransaction,
+            sendTransaction,
             handleChange,
             formData,
           }}
