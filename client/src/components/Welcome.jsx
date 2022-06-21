@@ -24,17 +24,23 @@ const Welcome = () => {
   const { 
     currentAccount, 
     connectWallet, 
-    // handleChange, 
+    handleChange, 
     // sendTransaction, 
-    // formData, 
+    formData, 
     //isLoading 
   } = useContext(TransactionContext);
   
 
-  const handleSubmit = () => 
-  {
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData;
 
-  }
+    e.preventDefault();
+
+    if (!addressTo || !amount || !keyword || !message) return;
+
+    sendTransaction();
+  };
+
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -103,16 +109,16 @@ const Welcome = () => {
 
           <div  className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
             <Input placeholder="Address To" name="addressTo" type="text" 
-            //handleChange={handleChange} 
+            handleChange={handleChange} 
             />
             <Input placeholder="Amount (ETH)" name="amount" type="number" 
-            //handleChange={handleChange} 
+            handleChange={handleChange} 
             />
             <Input placeholder="Keyword (Gif)" name="keyword" type="text" 
-            //handleChange={handleChange} 
+            handleChange={handleChange} 
             />
             <Input placeholder="Enter Message" name="message" type="text" 
-            //handleChange={handleChange} 
+            handleChange={handleChange} 
             />
           
 
