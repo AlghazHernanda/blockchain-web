@@ -131,7 +131,7 @@ export const TransactionsProvider = ({ children }) => {
             const transactionsCount = await transactionsContract.getTransactionCount();
     
             setTransactionCount(transactionsCount.toNumber());
-            window.location.reload();
+            window.location.reload(); //reload halaman jika abis dapet transfer
           } else {
             console.log("No ethereum object");
           }
