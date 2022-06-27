@@ -22,7 +22,7 @@
 
 - **Metamask**
  
-- **Rinkeby Etherscan**
+- **ViteJs**
 
 - **Alchemy**
 
